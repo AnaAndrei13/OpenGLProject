@@ -16,6 +16,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{4f41d816-8070-45f3-8099-afaaa572d297}</UniqueIdentifier>
     </Filter>
+    <Filter Include="images">
+      <UniqueIdentifier>{308672c3-a3e6-46c5-8576-ce47d91a62b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,6 +30,9 @@
     <ClCompile Include="cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex_shader.glsl">
@@ -35,6 +41,7 @@
     <None Include="fragment_shader.glsl">
       <Filter>shaders</Filter>
     </None>
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -46,5 +53,19 @@
     <ClInclude Include="cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Grass008.jpg">
+      <Filter>images</Filter>
+    </Image>
+    <Image Include="peisaj.jpg">
+      <Filter>images</Filter>
+    </Image>
+    <Image Include="view.jpg">
+      <Filter>images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

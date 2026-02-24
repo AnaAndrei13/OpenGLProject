@@ -81,8 +81,7 @@ public:
             ID = 0;
             return;
         }
-
-        // 4. Creează program
+		//4. Link shaders into a program
         ID = glCreateProgram();
         glAttachShader(ID, vertex);
         glAttachShader(ID, fragment);
@@ -97,8 +96,7 @@ public:
             ID = 0;
             return;
         }
-
-        // 5. Șterge shaderele individuale
+		// 5. Clean up shaders 
         glDeleteShader(vertex);
         glDeleteShader(fragment);
     }
@@ -108,5 +106,20 @@ public:
     void setMat4(const std::string& name, const glm::mat4& mat) const {
         unsigned int loc = glGetUniformLocation(ID, name.c_str());
         glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
+    }
+
+    // setInt to assign integer uniforms (e.g., texture unit indices)
+    void setInt(const std::string& name, int value) const {
+        if (!ID) return;
+        int loc = glGetUniformLocation(ID, name.c_str());
+        if (loc == -1) {
+            std::cerr << "Warning: uniform '" << name << "' not found or unused in shader.\n";
+            return;
+        }
+        glUniform1i(loc, value);
+    }
+
+    void setBool(const std::string& name, bool value) {
+        glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
     }
 };

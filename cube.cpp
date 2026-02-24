@@ -5,54 +5,54 @@
    and each triangle has 3 vertices,so we have 6*2*3 = 36 vertices in total. */
 
  const GLfloat cubeVertices[] = {
-   
+     // x    y     z          u   v
         // (z = -1)
-      -1.0f, -1.0f, -1.0f,
-       1.0f,  1.0f, -1.0f,
-       1.0f, -1.0f, -1.0f,
-       1.0f,  1.0f, -1.0f,
-      -1.0f, -1.0f, -1.0f,
-      -1.0f,  1.0f, -1.0f,
+	  -1.0f, -1.0f, -1.0f,    0.0f, 0.0f,
+	   1.0f,  1.0f, -1.0f,    1.0f, 1.0f,
+	   1.0f, -1.0f, -1.0f,    1.0f, 0.0f,
+	   1.0f,  1.0f, -1.0f,    1.0f, 1.0f,
+	  -1.0f, -1.0f, -1.0f,    0.0f, 0.0f,
+	  -1.0f,  1.0f, -1.0f,    0.0f, 1.0f,
 
        // (z = 1)
-      -1.0f, -1.0f, 1.0f,
-       1.0f, -1.0f, 1.0f,
-       1.0f,  1.0f, 1.0f,
-       1.0f,  1.0f, 1.0f,
-      -1.0f,  1.0f, 1.0f,
-      -1.0f, -1.0f, 1.0f,
+	  -1.0f, -1.0f, 1.0f,     0.0f, 0.0f,
+	   1.0f, -1.0f, 1.0f,     1.0f, 0.0f,
+	   1.0f,  1.0f, 1.0f,     1.0f, 1.0f,
+	   1.0f,  1.0f, 1.0f,     1.0f, 1.0f,
+	  -1.0f,  1.0f, 1.0f,     0.0f, 1.0f,
+	  -1.0f, -1.0f, 1.0f,     0.0f, 0.0f,
 
       // (x = -1)
-      -1.0f,  1.0f,  1.0f,
-      -1.0f,  1.0f, -1.0f,
-      -1.0f, -1.0f, -1.0f,
-      -1.0f, -1.0f, -1.0f,
-      -1.0f, -1.0f,  1.0f,
-      -1.0f,  1.0f,  1.0f,
+	  -1.0f,  1.0f,  1.0f,    1.0f, 0.0f,
+	  -1.0f,  1.0f, -1.0f,    1.0f, 1.0f,
+	  -1.0f, -1.0f, -1.0f,    0.0f, 1.0f,
+	  -1.0f, -1.0f, -1.0f,    0.0f, 1.0f,
+	  -1.0f, -1.0f,  1.0f,    0.0f, 0.0f,
+	  -1.0f,  1.0f,  1.0f,    1.0f, 0.0f,
 
      // (x = 1)
-       1.0f,  1.0f,  1.0f,
-       1.0f, -1.0f, -1.0f,
-       1.0f,  1.0f, -1.0f,
-       1.0f, -1.0f, -1.0f,
-       1.0f,  1.0f,  1.0f,
-       1.0f, -1.0f,  1.0f,
+	   1.0f,  1.0f,  1.0f,    1.0f, 0.0f,
+	   1.0f, -1.0f, -1.0f,    0.0f, 1.0f,
+	   1.0f,  1.0f, -1.0f,    1.0f, 1.0f,
+	   1.0f, -1.0f, -1.0f,    0.0f, 1.0f,
+	   1.0f,  1.0f,  1.0f,    1.0f, 0.0f,
+	   1.0f, -1.0f,  1.0f,    0.0f, 0.0f,
 
      // (y = -1)
-     -1.0f, -1.0f, -1.0f,
-      1.0f, -1.0f, -1.0f,
-      1.0f, -1.0f,  1.0f,
-      1.0f, -1.0f,  1.0f,
-     -1.0f, -1.0f,  1.0f,
-     -1.0f, -1.0f, -1.0f,
+	 -1.0f, -1.0f, -1.0f,     0.0f, 0.0f,
+	  1.0f, -1.0f, -1.0f,     1.0f, 0.0f,
+	  1.0f, -1.0f,  1.0f,     1.0f, 1.0f,
+	  1.0f, -1.0f,  1.0f,     1.0f, 1.0f,
+	 -1.0f, -1.0f,  1.0f,     0.0f, 1.0f,
+	 -1.0f, -1.0f, -1.0f,     0.0f, 0.0f,
 
     // (y = 1)
-     -1.0f, 1.0f, -1.0f,
-      1.0f, 1.0f,  1.0f,
-      1.0f, 1.0f, -1.0f,
-      1.0f, 1.0f,  1.0f,
-     -1.0f, 1.0f, -1.0f,
-     -1.0f, 1.0f,  1.0f
+	 -1.0f, 1.0f, -1.0f,      0.0f, 1.0f,
+	  1.0f, 1.0f,  1.0f,      1.0f, 0.0f,
+	  1.0f, 1.0f, -1.0f,      1.0f, 1.0f,
+	  1.0f, 1.0f,  1.0f,      1.0f, 0.0f,
+	 -1.0f, 1.0f, -1.0f,      0.0f, 1.0f,
+	 -1.0f, 1.0f,  1.0f,      0.0f, 0.0f
 
 };
 
@@ -70,8 +70,13 @@ void setupCube()
     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	// position attribute	
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+	// texture coord attribute
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
 }
