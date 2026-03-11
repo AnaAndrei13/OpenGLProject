@@ -77,7 +77,7 @@ void setupCube()
 	// texture coord attribute
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-
+	glDisableVertexAttribArray(2);
     glBindVertexArray(0);
 }
 

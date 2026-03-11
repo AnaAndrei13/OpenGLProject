@@ -54,3 +54,4 @@ void setupTerrain() {
 
     glBindVertexArray(0);
 }
+

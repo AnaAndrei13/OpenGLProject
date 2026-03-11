@@ -4,5 +4,4 @@
 
 extern unsigned int terrainVAO, terrainVBO;
 extern int terrainVertexCount;
-
 void setupTerrain();

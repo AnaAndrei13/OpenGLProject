@@ -129,9 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="C:\Users\40752\OneDrive\Desktop\dependecies\lib\glad.c" />
     <ClCompile Include="C:\Users\40752\OneDrive\Documente\libraries\glad\src\glad.c" />
+    <ClCompile Include="city.cpp" />
+    <ClCompile Include="city.h" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="stb_image_impl.cpp" />
     <ClCompile Include="terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,14 +145,25 @@
     <None Include="vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\40752\OneDrive\Desktop\dependecies\include\glad\glad.h" />
+    <ClInclude Include="C:\Users\40752\OneDrive\Desktop\dependecies\include\GLFW\glfw3.h" />
+    <ClInclude Include="C:\Users\40752\OneDrive\Desktop\dependecies\include\GLFW\glfw3native.h" />
+    <ClInclude Include="C:\Users\40752\OneDrive\Desktop\dependecies\include\KHR\khrplatform.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="terrain.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="building.jpg" />
+    <Image Include="building1.jpg" />
+    <Image Include="colormap.png" />
     <Image Include="Grass008.jpg" />
     <Image Include="peisaj.jpg" />
+    <Image Include="road.jpg" />
+    <Image Include="variation-a.png" />
     <Image Include="view.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
