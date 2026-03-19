@@ -62,7 +62,7 @@ void renderCityGrid(
                 drawModelTransformed(m.roadBendBarrier, shader, pos, glm::vec3(1.0f), 270.0f);
                 break;
             case CURVE_NW:
-                drawModelTransformed(m.roadBend, shader, pos, glm::vec3(1.0f), 0.0f);  
+                drawModelTransformed(m.roadBend, shader, pos, glm::vec3(1.0f), 0.0f);
                 drawModelTransformed(m.roadBendBarrier, shader, pos, glm::vec3(1.0f), 0.0f);
                 break;
             case CURVE_NE:
@@ -89,18 +89,29 @@ void renderCityGrid(
                 drawModelTransformed(m.roadRoundabout, shader, pos, glm::vec3(1.0f), 0.0f);
                 drawModelTransformed(m.roundaboutBarrier, shader, pos, glm::vec3(1.0f), 0.0f);
                 break;
-            case HOUSE_S:
+            case HOUSE_S:  
                 drawModelTransformed(m.house, shader, pos01, glm::vec3(0.7f), 0.0f);
                 break;
             case HOUSE_L:
                 drawModelTransformed(m.house, shader, pos01, glm::vec3(1.2f), 0.0f);
                 break;
             case LIGHT_TILE:
-                drawModelTransformed(m.lightSquare, shader, pos01, glm::vec3(1.5f), 0.0f);
+            {   float lightRot = 0.0f;
+           
+            float lampOffsetX = 0.08f;
+            float lampOffsetZ = 0.09f;
+            float lampX = cityOffsetX + col * 1.0f + lampOffsetX;
+            float lampZ = cityOffsetZ + row * 1.0f + lampOffsetZ;
+            drawModelTransformed(m.lightSquare,
+                shader,
+                glm::vec3( lampX, bottomY, lampZ),
+                glm::vec3(1.5f),
+                lightRot);
                 break;
+            }
             case CONE_TILE:
                 drawModelTransformed(m.constructionCone, shader,
-                    glm::vec3(wx +0.7f , bottomY + 0.01f, wz),
+                    glm::vec3(wx + 0.7f, bottomY + 0.01f, wz),
                     glm::vec3(2.2f), 0.0f);
                 drawModelTransformed(m.constructionCone, shader,
                     glm::vec3(wx + 1.0f, bottomY + 0.01f, wz),
@@ -109,14 +120,26 @@ void renderCityGrid(
                     glm::vec3(wx + 1.3f, bottomY + 0.01f, wz),
                     glm::vec3(2.2f), 0.0f);
                 break;
-             case ST_H:
+            case CONSTRUCTION_L:
+                drawModelTransformed(m.constructionLight, shader,
+                    glm::vec3(wx + 0.7f, bottomY + 0.01f, wz - 0.9),
+                    glm::vec3(3.0f), 0.0f);
+             
+                break;
+            case SIGN:
+                   drawModelTransformed(m.signHighway, shader,
+                   glm::vec3(wx + 0.89f, bottomY + 0.03f, wz + 1.0f),
+                    glm::vec3(1.0f), 180.0f);
+                break;
+            case ST_H:
                 drawModelTransformed(m.roadStraight, shader, pos, glm::vec3(1.0f), 0.0f);
                 break;
-             case ST_V:
+            case ST_V:
                 drawModelTransformed(m.roadStraight, shader, pos, glm::vec3(1.0f), 90.0f);
-				break;
+                break;
             default:
                 break;
+           
             }
         }
     }
