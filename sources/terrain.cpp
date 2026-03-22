@@ -19,7 +19,9 @@ void setupTerrain() {
             float z1 = z0 + cellSize;
 
             auto height = [](float x, float z) {
-                return 3.5f * exp(-(x * x + z * z) * 9.0f); 
+                float dx = x - 1.0f;   
+                float dz = z + 0.75f;   
+                return 3.5f * exp(-(dx * dx + dz * dz) * 7.0f);
                 };
 
             float y00 = height(x0, z0);

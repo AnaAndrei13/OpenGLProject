@@ -102,7 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\40752\OneDrive\Documente\libraries\GLM\;C:\Users\40752\OneDrive\Documente\libraries\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include;C:\Users\40752\OneDrive\Documente\libraries\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\40752\OneDrive\Documente\libraries\GLM\;C:\Users\40752\OneDrive\Documente\libraries\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include;C:\Users\40752\OneDrive\Documente\libraries\glad\include;$(ProjectDir)headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\40752\OneDrive\Documente\libraries\GLM\;C:\Users\40752\OneDrive\Documente\libraries\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include;C:\Users\40752\OneDrive\Documente\libraries\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\40752\OneDrive\Documente\libraries\GLM\;C:\Users\40752\OneDrive\Documente\libraries\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include;C:\Users\40752\OneDrive\Documente\libraries\glad\include;$(ProjectDir)headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,38 +130,36 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\40752\OneDrive\Desktop\dependecies\lib\glad.c" />
-    <ClCompile Include="city.cpp" />
-    <ClCompile Include="city.h" />
-    <ClCompile Include="model.cpp" />
-    <ClCompile Include="cube.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="stb_image_impl.cpp" />
-    <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="sources\car.cpp" />
+    <ClCompile Include="sources\city.cpp" />
+    <ClCompile Include="sources\cube.cpp" />
+    <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\model.cpp" />
+    <ClCompile Include="sources\stb_image_impl.cpp" />
+    <ClCompile Include="sources\terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="depth_fragment.glsl" />
-    <None Include="depth_vertex.glsl" />
-    <None Include="fragment_shader.glsl" />
-    <None Include="vertex_shader.glsl" />
+    <None Include="shaders\depth_fragment.glsl" />
+    <None Include="shaders\depth_vertex.glsl" />
+    <None Include="shaders\fragment_shader.glsl" />
+    <None Include="shaders\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="model.h" />
-    <ClInclude Include="cube.h" />
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="terrain.h" />
-    <ClInclude Include="tiny_obj_loader.h" />
+    <ClInclude Include="car.h" />
+    <ClInclude Include="headers\city.h" />
+    <ClInclude Include="headers\cube.h" />
+    <ClInclude Include="headers\model.h" />
+    <ClInclude Include="headers\shader.h" />
+    <ClInclude Include="headers\stb_image.h" />
+    <ClInclude Include="headers\terrain.h" />
+    <ClInclude Include="headers\tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="building.jpg" />
-    <Image Include="building1.jpg" />
-    <Image Include="colormap.png" />
-    <Image Include="Grass008.jpg" />
-    <Image Include="peisaj.jpg" />
-    <Image Include="road.jpg" />
-    <Image Include="variation-a.png" />
-    <Image Include="view.jpg" />
+    <Image Include="textures\colormap.png" />
+    <Image Include="textures\colormap_house.png" />
+    <Image Include="textures\Grass008.jpg" />
+    <Image Include="textures\variation-a.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

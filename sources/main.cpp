@@ -4,6 +4,7 @@
 #include "terrain.h"
 #include "model.h"
 #include "city.h"
+#include "car.h"
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -20,6 +21,10 @@ float camRoll = 0.0f;   // rotation around Z axis
 
 float cityOffsetX = -7.0f;
 float cityOffsetZ = -5.0f;
+
+Car car;    
+bool followCar = false;
+float camCarYaw = 0.0f; 
 
 int main()
 {
@@ -43,6 +48,8 @@ int main()
     glfwSetKeyCallback(window, [](GLFWwindow* w, int key, int, int action, int) {
         float speed = 0.2f;
 
+        if (key == GLFW_KEY_C && action == GLFW_PRESS) followCar = !followCar;
+
         // --- ROTATIONS ---
         if (key == GLFW_KEY_LEFT)  camYaw -= 3.0f;   // yaw left
         if (key == GLFW_KEY_RIGHT) camYaw += 3.0f;   // yaw right
@@ -56,12 +63,12 @@ int main()
         float newX = camX, newY = camY, newZ = camZ;
 
         // move forward/backward (Z axis)
-        if (key == GLFW_KEY_UP || key == GLFW_KEY_W) {
+        if ((key == GLFW_KEY_UP || key == GLFW_KEY_W) && !followCar){
             newX += speed * cos(glm::radians(camPitch)) * sin(glm::radians(camYaw));
             newY += speed * sin(glm::radians(camPitch));
             newZ -= speed * cos(glm::radians(camPitch)) * cos(glm::radians(camYaw));
         }
-        if (key == GLFW_KEY_DOWN || key == GLFW_KEY_S) {
+        if ((key == GLFW_KEY_DOWN || key == GLFW_KEY_S) && !followCar){
             newX -= speed * cos(glm::radians(camPitch)) * sin(glm::radians(camYaw));
             newY -= speed * sin(glm::radians(camPitch));
             newZ += speed * cos(glm::radians(camPitch)) * cos(glm::radians(camYaw));
@@ -94,7 +101,7 @@ int main()
             }
         }
 
-        if (!blocked) { camX = newX; camZ = newZ; }
+        if (!blocked) { camX = newX; camY = newY; camZ = newZ; }
         });
 
 
@@ -114,13 +121,13 @@ int main()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
 
-    Shader shader("vertex_shader.glsl", "fragment_shader.glsl");
+    Shader shader("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
 
     if (shader.ID == 0) {
         cerr << "Shader initialization failed. Check previous error messages and shader file paths.\n";
         return -1;
     }
-    Shader depthShader("depth_vertex.glsl", "depth_fragment.glsl");
+    Shader depthShader("shaders/depth_vertex.glsl", "shaders/depth_fragment.glsl");
 
     shader.use();
     unsigned int grassTexture,mountainTexture;
@@ -140,7 +147,7 @@ int main()
 
 
     // Load image for the grass texture
-    data = stbi_load("Grass008.jpg", &width, &height, &nrChannels, 0);
+    data = stbi_load("textures/Grass008.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -165,7 +172,7 @@ int main()
 
 
     stbi_set_flip_vertically_on_load(true);
-    data = stbi_load("colormap.png", &width, &height, &nrChannels, 0);
+    data = stbi_load("textures/colormap.png", &width, &height, &nrChannels, 0);
     if (data) {
         GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
@@ -178,24 +185,28 @@ int main()
     stbi_set_flip_vertically_on_load(false);
 
 
-    Model roadSide = loadOBJ("road-side.obj");
-    Model roadIntersection = loadOBJ("road-intersection.obj");
-    Model roadRoundabout = loadOBJ("road-roundabout.obj");
-    Model roundaboutBarrier = loadOBJ("road-roundabout-barrier.obj");
-    Model constructionCone = loadOBJ("construction-cone.obj");
-    Model roadEnd = loadOBJ("road-end.obj");
-    Model roadEndBarrier = loadOBJ("road-end-barrier.obj");
-    Model roadStraight = loadOBJ("road-straight.obj");
-    Model roadStraightBarrier = loadOBJ("road-straight-barrier.obj");
-    Model lightSquare = loadOBJ("light-square.obj");
-    Model roadCurve = loadOBJ("road-curve.obj");
-    Model roadBend = loadOBJ("road-bend.obj");
-    Model roadCurveIntersection = loadOBJ("road-curve-intersection.obj");
-    Model roadBendBarrier = loadOBJ("road-bend-barrier.obj");
-    Model house = loadOBJ("building-type-b.obj");
-    Model constructionLight = loadOBJ("construction-light.obj");
-	Model signHighway = loadOBJ("sign-highway-detailed.obj");
+    Model roadSide = loadOBJ("objects/road-side.obj");
+    Model roadIntersection = loadOBJ("objects/road-intersection.obj");
+    Model roadRoundabout = loadOBJ("objects/road-roundabout.obj");
+    Model roundaboutBarrier = loadOBJ("objects/road-roundabout-barrier.obj");
+    Model constructionCone = loadOBJ("objects/construction-cone.obj");
+    Model roadEnd = loadOBJ("objects/road-end.obj");
+    Model roadEndBarrier = loadOBJ("objects/road-end-barrier.obj");
+    Model roadStraight = loadOBJ("objects/road-straight.obj");
+    Model roadStraightBarrier = loadOBJ("objects/road-straight-barrier.obj");
+    Model lightSquare = loadOBJ("objects/light-square.obj");
+    Model roadCurve = loadOBJ("objects/road-curve.obj");
+    Model roadBend = loadOBJ("objects/road-bend.obj");
+    Model roadCurveIntersection = loadOBJ("objects/road-curve-intersection.obj");
+    Model roadBendBarrier = loadOBJ("objects/road-bend-barrier.obj");
+    Model house = loadOBJ("objects/building-type-b.obj");
+    Model constructionLight = loadOBJ("objects/construction-light.obj");
+	Model crossIntersection = loadOBJ("objects/road-intersection.obj");
+	Model crossIntersectionBarrier = loadOBJ("objects/road-intersection-barrier.obj");
+	Model crossRoad = loadOBJ("objects/road-crossroad.obj");
+	Model sign = loadOBJ("objects/sign-highway-detailed.obj");
 
+	Model carModel = loadOBJ("objects/sedan.obj");
 
     CityModels cityModels = {
         roadStraight,
@@ -211,13 +222,18 @@ int main()
         roadBend,
         roadBendBarrier,
         constructionLight,
-        signHighway
+        crossIntersection,
+        crossIntersectionBarrier,
+        crossRoad,
+        sign
+      
     };
 
     float cubeScale = 50.0f;
     float bottomY = -cubeScale + 0.5f;
     float lampOffsetX = 0.08f;
     float lampOffsetZ = 0.09f;
+    initCar(car, cityOffsetX, cityOffsetZ, bottomY);
 
    // collect the positions of the pillars
     std::vector<glm::vec3> lampPositions;
@@ -350,7 +366,7 @@ int main()
 
         // render city models to depth buffer
         renderCityGrid(depthShader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
-
+      
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
        // ==============================================
@@ -384,6 +400,7 @@ int main()
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
         }
 
+
         // ==============================================
         // PASS 2: render scene normally with shadows
         // ==============================================
@@ -406,12 +423,39 @@ int main()
 
         glm::vec3 up = glm::vec3(sin(glm::radians(camRoll)),
             cos(glm::radians(camRoll)), 0.0f);
+   
 
-        glm::mat4 view = glm::lookAt(
-            glm::vec3(camX, camY, camZ),
-            glm::vec3(camX + dirX, camY + dirY, camZ + dirZ),
-            up
-        );
+        if (followCar) {
+            updateCar(car, window, cityOffsetX, cityOffsetZ);
+            updateCameraFollowCar(car, camX, camY, camZ);
+        }
+
+        glm::mat4 view;
+
+        if (followCar) {
+            view = glm::lookAt(
+                glm::vec3(camX, camY, camZ),
+                car.position,
+                glm::vec3(0.0f, 1.0f, 0.0f)
+            );
+        }
+        else {
+            float dirX = cos(glm::radians(camPitch)) * sin(glm::radians(camYaw));
+            float dirY = sin(glm::radians(camPitch));
+            float dirZ = -cos(glm::radians(camPitch)) * cos(glm::radians(camYaw));
+
+            glm::vec3 up = glm::vec3(
+                sin(glm::radians(camRoll)),
+                cos(glm::radians(camRoll)),
+                0.0f
+            );
+
+            view = glm::lookAt(
+                glm::vec3(camX, camY, camZ),
+                glm::vec3(camX + dirX, camY + dirY, camZ + dirZ),
+                up
+            );
+        }
 
         glm::mat4 projection = glm::perspective(glm::radians(90.0f),
             (float)mode->width / (float)mode->height, 0.01f, 500.0f);
@@ -446,6 +490,10 @@ int main()
         // draw city models
         shader.setBool("isModel", true);
         renderCityGrid(shader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
+        shader.setBool("isModel", false);
+
+        shader.setBool("isModel", true);
+        renderCar(car, carModel, shader);
         shader.setBool("isModel", false);
 
         // draw skybox cube

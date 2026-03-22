@@ -16,95 +16,89 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{4f41d816-8070-45f3-8099-afaaa572d297}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images">
-      <UniqueIdentifier>{308672c3-a3e6-46c5-8576-ce47d91a62b4}</UniqueIdentifier>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{48747802-6c74-40c5-8218-73d721d05e2d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_image_impl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\40752\OneDrive\Desktop\dependecies\lib\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="city.h">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="sources\city.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="city.cpp">
+    <ClCompile Include="sources\cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\stb_image_impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertex_shader.glsl">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="fragment_shader.glsl">
-      <Filter>shaders</Filter>
-    </None>
     <None Include=".gitignore" />
-    <None Include="depth_fragment.glsl">
+    <None Include="shaders\depth_fragment.glsl">
       <Filter>shaders</Filter>
     </None>
-    <None Include="depth_vertex.glsl">
+    <None Include="shaders\depth_vertex.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\fragment_shader.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\vertex_shader.glsl">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shader.h">
+    <ClInclude Include="car.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
+    <ClInclude Include="headers\city.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cube.h">
+    <ClInclude Include="headers\cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="terrain.h">
+    <ClInclude Include="headers\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tiny_obj_loader.h">
+    <ClInclude Include="headers\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="model.h">
+    <ClInclude Include="headers\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\terrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tiny_obj_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Grass008.jpg">
-      <Filter>images</Filter>
+    <Image Include="textures\colormap.png">
+      <Filter>Textures</Filter>
     </Image>
-    <Image Include="peisaj.jpg">
-      <Filter>images</Filter>
+    <Image Include="textures\colormap_house.png">
+      <Filter>Textures</Filter>
     </Image>
-    <Image Include="view.jpg">
-      <Filter>images</Filter>
+    <Image Include="textures\Grass008.jpg">
+      <Filter>Textures</Filter>
     </Image>
-    <Image Include="road.jpg">
-      <Filter>images</Filter>
-    </Image>
-    <Image Include="building.jpg">
-      <Filter>images</Filter>
-    </Image>
-    <Image Include="building1.jpg">
-      <Filter>images</Filter>
-    </Image>
-    <Image Include="variation-a.png">
-      <Filter>images</Filter>
-    </Image>
-    <Image Include="colormap.png">
-      <Filter>images</Filter>
+    <Image Include="textures\variation-a.png">
+      <Filter>Textures</Filter>
     </Image>
   </ItemGroup>
 </Project>
