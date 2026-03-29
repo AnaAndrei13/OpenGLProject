@@ -12,9 +12,14 @@ struct Car {
     float speed;
     float width = 1.8f;
     float length = 1.8f;
+    int targetCorner = 0;
 };
 
 void initCar(Car& car, float cityOffsetX, float cityOffsetZ, float bottomY);
+void initDeliveryCar(Car& car, float cityOffsetX, float cityOffsetZ, float bottomY);
+void initVanCar(Car& car, float cityOffsetX, float cityOffsetZ, float bottomY);
 void renderCar(const Car& car, Model& carModel, Shader& shader);
 void updateCar(Car& car, GLFWwindow* window, float cityOffsetX, float cityOffsetZ);
 void updateCameraFollowCar(const Car& car, float& camX, float& camY, float& camZ);
+void updateDeliveryCarContour(Car& car, float cityOffsetX, float cityOffsetZ);
+void updateVanCarContour(Car& car, float cityOffsetX, float cityOffsetZ);

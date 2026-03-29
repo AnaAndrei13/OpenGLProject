@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="C:\Users\40752\OneDrive\Desktop\dependecies\lib\glad.c" />
     <ClCompile Include="sources\car.cpp" />
+    <ClCompile Include="sources\character.cpp" />
     <ClCompile Include="sources\city.cpp" />
     <ClCompile Include="sources\cube.cpp" />
     <ClCompile Include="sources\main.cpp" />
@@ -146,7 +147,8 @@
     <None Include="shaders\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="car.h" />
+    <ClInclude Include="headers\car.h" />
+    <ClInclude Include="headers\character.h" />
     <ClInclude Include="headers\city.h" />
     <ClInclude Include="headers\cube.h" />
     <ClInclude Include="headers\model.h" />

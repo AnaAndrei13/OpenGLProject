@@ -113,7 +113,6 @@ public:
         if (!ID) return;
         int loc = glGetUniformLocation(ID, name.c_str());
         if (loc == -1) {
-            std::cerr << "Warning: uniform '" << name << "' not found or unused in shader.\n";
             return;
         }
         glUniform1i(loc, value);

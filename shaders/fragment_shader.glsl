@@ -13,12 +13,15 @@ in vec3 FragPosWorld;
 uniform sampler2D texture1; //grass
 uniform sampler2D roadTexture;
 uniform bool isTerrain, isModel, isHouse;
+uniform bool hasTexture;
 
 uniform sampler2D shadowMap;
 uniform mat4 lightSpaceMatrix;
 uniform vec3 lightDir;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
+
+uniform sampler2D tex0; //model texture
 
 uniform sampler2D shadowMaps[MAX_LAMPS];
 uniform mat4 lampSpaceMatrices[MAX_LAMPS];
@@ -69,7 +72,7 @@ float calculateLampShadow(int i, vec3 normal, vec3 lampDir)
 
 void main()
 { 
-     vec3 a = abs(FragPos);
+    vec3 a = abs(FragPos);
 
     if (isModel) {
      vec3 norm = normalize(Normal);
@@ -110,13 +113,15 @@ void main()
 
                 float lampShadow = calculateLampShadow(i, norm, lampDir);
             
-                lighting += lampColor * diffLamp * attenuation * intensity * (1.0 - lampShadow * 0.8) * 12.0;
+             lighting += lampColor * diffLamp * attenuation * intensity * (1.0 - lampShadow * 0.8) * 12.0;
             }
       }
-
-    vec4 texColor = texture(roadTexture, TexCoord);
-    FragColor = vec4(lighting * texColor.rgb, texColor.a);
+     vec3 baseColor;
+    baseColor = texture(tex0, TexCoord).rgb;
+    
+    FragColor = vec4(baseColor * lighting, 1.0);
     return;
+
    }
 
 
@@ -135,8 +140,8 @@ void main()
            FragColor = texture(texture1, TexCoord); // bottom -> grass
        else{ 
        // top -> sky
-          float t = clamp((FragPos.y + 1.0) * 0.5, 0.0, 1.0);
-          vec3 skyTop    = vec3(0.55, 0.60, 0.65);
+          float t = clamp(FragPos.y / 50, 0.0, 1.0);
+          vec3 skyTop    = vec3(0.50, 0.60, 0.65);
           vec3 skyBottom = vec3(0.80, 0.82, 0.85);
           FragColor = vec4(mix(skyBottom, skyTop, t), 1.0);
       }

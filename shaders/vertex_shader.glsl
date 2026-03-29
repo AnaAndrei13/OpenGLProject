@@ -20,7 +20,8 @@ void main()
    vec4 worldPosition = model * vec4(aPos, 1.0);
    gl_Position = projection * view * worldPosition;
    TexCoord = aTexCoord;
-   FragPos = aPos; 
+   FragPos = vec3(worldPosition);
+
    VertexColor = aColor;
    FragPosWorld = vec3(worldPosition);
 

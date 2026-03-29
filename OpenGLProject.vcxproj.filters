@@ -45,6 +45,9 @@
     <ClCompile Include="sources\car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -62,9 +65,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="car.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="headers\city.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +84,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\car.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

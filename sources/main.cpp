@@ -5,6 +5,7 @@
 #include "model.h"
 #include "city.h"
 #include "car.h"
+#include "character.h"
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,7 +15,7 @@
 #include <vector>
 using namespace std;
 
-float camX = 0.0f, camY = -49.0f, camZ = 0.0f;     
+float camX = 0.0f, camY = -48.5f, camZ = 0.0f;     
 float camYaw = 0.0f;    // rotation around Y axis
 float camPitch = 0.0f;  // rotation around X axis
 float camRoll = 0.0f;   // rotation around Z axis
@@ -22,7 +23,9 @@ float camRoll = 0.0f;   // rotation around Z axis
 float cityOffsetX = -7.0f;
 float cityOffsetZ = -5.0f;
 
-Car car;    
+Car car, delivery, van; 
+Character policeMan1, policeMan2, policeMan3;
+
 bool followCar = false;
 float camCarYaw = 0.0f; 
 
@@ -147,7 +150,7 @@ int main()
 
 
     // Load image for the grass texture
-    data = stbi_load("textures/Grass008.jpg", &width, &height, &nrChannels, 0);
+    data = stbi_load("images/Grass008.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -161,52 +164,32 @@ int main()
 
     shader.use();
     shader.setInt("texture1", 0);
-    
-    unsigned int roadTexture;
-    glGenTextures(1, &roadTexture);
-    glBindTexture(GL_TEXTURE_2D, roadTexture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    Model roadSide = loadGLB("assets/road/road-side.glb");
+    Model roadIntersection = loadGLB("assets/road/road-intersection.glb");
+    Model roadRoundabout = loadGLB("assets/road/road-roundabout.glb");
+    Model roundaboutBarrier = loadGLB("assets/road/road-roundabout-barrier.glb");
+    Model constructionCone = loadGLB("assets/road/construction-cone.glb");
+    Model roadEnd = loadGLB("assets/road/road-end.glb");
+    Model roadEndBarrier = loadGLB("assets/road/road-end-barrier.glb");
+    Model roadStraight = loadGLB("assets/road/road-straight.glb");
+    Model roadStraightBarrier = loadGLB("assets/road/road-straight-barrier.glb");
+    Model lightSquare = loadGLB("assets/road/light-square.glb");
+    Model roadCurve = loadGLB("assets/road/road-curve.glb");
+    Model roadBend = loadGLB("assets/road/road-bend.glb");
+    Model roadCurveIntersection = loadGLB("assets/road/road-curve-intersection.glb");
+    Model roadBendBarrier = loadGLB("assets/road/road-bend-barrier.glb");
+    Model house = loadGLB("assets/city/building-type-b.glb");
+    Model constructionLight = loadGLB("assets/road/construction-light.glb");
+    Model crossIntersection = loadGLB("assets/road/road-intersection.glb");
+    Model crossIntersectionBarrier = loadGLB("assets/road/road-intersection-barrier.glb");
+    Model crossRoad = loadGLB("assets/road/road-crossroad.glb");
+    Model sign = loadGLB("assets/road/sign-highway-detailed.glb");
+    Model carModel = loadGLB("assets/car/sedan.glb");
+    Model deliveryCar = loadGLB("assets/car/delivery.glb");
+    Model vanCar = loadGLB("assets/car/van.glb");
 
-    stbi_set_flip_vertically_on_load(true);
-    data = stbi_load("textures/colormap.png", &width, &height, &nrChannels, 0);
-    if (data) {
-        GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else {
-        cout << "Failed to load!" << endl;
-    }
-    stbi_image_free(data);
-    stbi_set_flip_vertically_on_load(false);
-
-
-    Model roadSide = loadOBJ("objects/road-side.obj");
-    Model roadIntersection = loadOBJ("objects/road-intersection.obj");
-    Model roadRoundabout = loadOBJ("objects/road-roundabout.obj");
-    Model roundaboutBarrier = loadOBJ("objects/road-roundabout-barrier.obj");
-    Model constructionCone = loadOBJ("objects/construction-cone.obj");
-    Model roadEnd = loadOBJ("objects/road-end.obj");
-    Model roadEndBarrier = loadOBJ("objects/road-end-barrier.obj");
-    Model roadStraight = loadOBJ("objects/road-straight.obj");
-    Model roadStraightBarrier = loadOBJ("objects/road-straight-barrier.obj");
-    Model lightSquare = loadOBJ("objects/light-square.obj");
-    Model roadCurve = loadOBJ("objects/road-curve.obj");
-    Model roadBend = loadOBJ("objects/road-bend.obj");
-    Model roadCurveIntersection = loadOBJ("objects/road-curve-intersection.obj");
-    Model roadBendBarrier = loadOBJ("objects/road-bend-barrier.obj");
-    Model house = loadOBJ("objects/building-type-b.obj");
-    Model constructionLight = loadOBJ("objects/construction-light.obj");
-	Model crossIntersection = loadOBJ("objects/road-intersection.obj");
-	Model crossIntersectionBarrier = loadOBJ("objects/road-intersection-barrier.obj");
-	Model crossRoad = loadOBJ("objects/road-crossroad.obj");
-	Model sign = loadOBJ("objects/sign-highway-detailed.obj");
-
-	Model carModel = loadOBJ("objects/sedan.obj");
+	Model characterModel = loadGLB("assets/character/character-male-c.glb");
 
     CityModels cityModels = {
         roadStraight,
@@ -227,13 +210,19 @@ int main()
         crossRoad,
         sign
       
-    };
+    }; 
 
     float cubeScale = 50.0f;
     float bottomY = -cubeScale + 0.5f;
     float lampOffsetX = 0.08f;
     float lampOffsetZ = 0.09f;
+
     initCar(car, cityOffsetX, cityOffsetZ, bottomY);
+    initDeliveryCar( delivery, cityOffsetX, cityOffsetZ,bottomY);
+    initVanCar(van,cityOffsetX, cityOffsetZ, bottomY);
+    initCharacter(policeMan1, cityOffsetX + 2.0f, bottomY, cityOffsetZ + 3.0f);
+    initCharacter(policeMan2, cityOffsetX + 3.0f, bottomY, cityOffsetZ + 6.0f);
+    initCharacter(policeMan3, cityOffsetX + 8.0f, bottomY, cityOffsetZ + 5.0f);
 
    // collect the positions of the pillars
     std::vector<glm::vec3> lampPositions;
@@ -252,8 +241,8 @@ int main()
     }
 
 
-    const unsigned int SHADOW_WIDTH = 4096;
-    const unsigned int SHADOW_HEIGHT = 4096;
+    const unsigned int SHADOW_WIDTH = 2048;
+    const unsigned int SHADOW_HEIGHT = 2048;
 
     unsigned int depthMapFBO;
     glGenFramebuffers(1, &depthMapFBO);
@@ -364,9 +353,9 @@ int main()
         glBindVertexArray(terrainVAO);
         glDrawArrays(GL_TRIANGLES, 0, terrainVertexCount);
 
-        // render city models to depth buffer
-        renderCityGrid(depthShader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
-      
+         //render city models to depth buffer
+         renderCityGrid(depthShader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
+     
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
        // ==============================================
@@ -396,8 +385,8 @@ int main()
             glBindVertexArray(terrainVAO);
             glDrawArrays(GL_TRIANGLES, 0, terrainVertexCount);
 
-            renderCityGrid(depthShader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
-            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+           renderCityGrid(depthShader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
+           glBindFramebuffer(GL_FRAMEBUFFER, 0);
         }
 
 
@@ -423,7 +412,13 @@ int main()
 
         glm::vec3 up = glm::vec3(sin(glm::radians(camRoll)),
             cos(glm::radians(camRoll)), 0.0f);
-   
+
+        updateCharacter(policeMan1, cityOffsetX, cityOffsetZ);
+        updateCharacter(policeMan2, cityOffsetX, cityOffsetZ);
+        updateCharacter(policeMan3, cityOffsetX, cityOffsetZ);
+
+        updateDeliveryCarContour(delivery, cityOffsetX, cityOffsetZ);
+        updateVanCarContour( van, cityOffsetX, cityOffsetZ);
 
         if (followCar) {
             updateCar(car, window, cityOffsetX, cityOffsetZ);
@@ -470,25 +465,21 @@ int main()
         shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
    
         for (int i = 0; i < numLamps; i++) {
-            glActiveTexture(GL_TEXTURE8 + i);
+            glActiveTexture(GL_TEXTURE10 + i);
             glBindTexture(GL_TEXTURE_2D, depthMaps[i]);
-            shader.setInt("shadowMaps[" + std::to_string(i) + "]", 8 + i);
+            shader.setInt("shadowMaps[" + std::to_string(i) + "]", 10 + i);
             shader.setMat4("lampSpaceMatrices[" + std::to_string(i) + "]", lampSpaceMatrices[i]);
         }
         // bind textures
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, grassTexture);
 
-        glActiveTexture(GL_TEXTURE4);
-        glBindTexture(GL_TEXTURE_2D, roadTexture);
-        shader.setInt("roadTexture", 4);
-
         glActiveTexture(GL_TEXTURE6);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         shader.setInt("shadowMap", 6);
 
         // draw city models
-        shader.setBool("isModel", true);
+       shader.setBool("isModel", true);
         renderCityGrid(shader, cityModels, bottomY, cityOffsetX, cityOffsetZ);
         shader.setBool("isModel", false);
 
@@ -496,21 +487,36 @@ int main()
         renderCar(car, carModel, shader);
         shader.setBool("isModel", false);
 
-        // draw skybox cube
+        shader.setBool("isModel", true);
+        renderCar(delivery, deliveryCar, shader);
+        shader.setBool("isModel", false);
+
+        shader.setBool("isModel", true);
+        renderCar(van, vanCar, shader);
+        shader.setBool("isModel", false);
+
+        shader.setBool("isModel", true);
+        drawModel(characterModel, shader, policeMan1.position, glm::vec3(0.5f), policeMan1.yaw);
+        drawModel(characterModel, shader, policeMan2.position, glm::vec3(0.5f), policeMan2.yaw);
+        drawModel(characterModel, shader, policeMan3.position, glm::vec3(0.5f), policeMan3.yaw);
+        shader.setBool("isModel", false);
+        
+        // draw  cube
         glCullFace(GL_FRONT);
+        shader.setBool("isTerrain", false);
+        shader.setBool("isModel", false);
         shader.setMat4("model", model);
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
-
+       
         // draw terrain
         shader.setBool("isTerrain", true);
         shader.setMat4("model", terrainModel);
         glBindVertexArray(terrainVAO);
         glDrawArrays(GL_TRIANGLES, 0, terrainVertexCount);
         shader.setBool("isTerrain", false);
+     
         glCullFace(GL_BACK);
-        shader.setMat4("model", model);
-
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

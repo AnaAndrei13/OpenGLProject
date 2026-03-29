@@ -15,11 +15,15 @@ static void drawModelTransformed(
         m = glm::rotate(m, glm::radians(rotYdeg), glm::vec3(0.0f, 1.0f, 0.0f));
     m = glm::scale(m, scale);
     shader.setMat4("model", m);
-
+    
+    bool hasTex = (model.textureID != 0);
+    shader.setBool("hasTexture", hasTex);
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, hasTex ? model.textureID : 0);
+    shader.setInt("tex0", 2);
+  
     glBindVertexArray(model.VAO);
-    glEnableVertexAttribArray(2);
-    glDrawArrays(GL_TRIANGLES, 0, model.vertexCount);
-    glDisableVertexAttribArray(2);
+    glDrawArrays(GL_TRIANGLES, 0, model.indexCount);
     glBindVertexArray(0);
 }
 static bool isRoadTile(int tile)
@@ -130,7 +134,6 @@ void renderCityGrid(
                 else if (down && !up)
                     rot = 0.0f;
 
-                // T orizontal (ramura stanga/dreapta)
                 else if (up && down && right && !left)
                     rot = 90.0f;
 
